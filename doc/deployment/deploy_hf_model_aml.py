@@ -63,8 +63,8 @@
 
 from dotenv import load_dotenv
 import os
-import random
 import string
+import secrets
 
 # Load the environment variables from the .env file
 load_dotenv()
@@ -175,7 +175,7 @@ def get_updated_endpoint_name(endpoint_name):
     base_name = endpoint_name[:26]
 
     # Generate a 5-char random alphanumeric string and append to '-'
-    random_suffix = "-" + "".join(random.choices(string.ascii_letters + string.digits, k=5))
+    random_suffix = "-" + "".join(secrets.SystemRandom().choices(string.ascii_letters + string.digits, k=5))
 
     updated_name = f"{base_name}{random_suffix}"
 

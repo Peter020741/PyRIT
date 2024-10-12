@@ -1,11 +1,11 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT license.
 
-import random
 import logging
 
 from pyrit.models import PromptDataType
 from pyrit.prompt_converter import PromptConverter, ConverterResult
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -47,7 +47,7 @@ class RandomCapitalLettersConverter(PromptConverter):
             )
 
         # Generate a list of unique random positions
-        random_positions = random.sample(range(total_length), set_number)
+        random_positions = secrets.SystemRandom().sample(range(total_length), set_number)
 
         return random_positions
 

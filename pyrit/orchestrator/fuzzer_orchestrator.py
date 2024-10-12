@@ -7,7 +7,6 @@ from colorama import Fore, Style
 from dataclasses import dataclass
 import logging
 from pathlib import Path
-import random
 from typing import Optional, Union
 import uuid
 
@@ -22,6 +21,7 @@ from pyrit.prompt_converter import PromptConverter
 from pyrit.prompt_normalizer import NormalizerRequest, PromptNormalizer
 from pyrit.prompt_target import PromptTarget, PromptChatTarget
 from pyrit.score import SelfAskScaleScorer, FloatScaleThresholdScorer
+import secrets
 
 
 TEMPLATE_PLACEHOLDER = "{{ prompt }}"
@@ -428,7 +428,7 @@ class FuzzerOrchestrator(Orchestrator):
         Raises:
             MissingPromptPlaceholderException: If the prompt placeholder is still missing.
         """
-        template_converter = random.choice(self._template_converters)
+        template_converter = secrets.choice(self._template_converters)
 
         target_seed_obj = await template_converter.convert_async(prompt=template)
         if TEMPLATE_PLACEHOLDER not in target_seed_obj.output_text:
