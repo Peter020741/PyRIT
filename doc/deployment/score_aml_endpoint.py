@@ -106,7 +106,7 @@ headers = {
 }
 
 # Make the request, ignoring SSL certificate verification if using a self-signed certificate
-response = requests.post(url, data=body, headers=headers, verify=False)
+response = requests.post(url, data=body, headers=headers, verify=False, timeout=60)
 
 try:
     # If the request is successful, print the result

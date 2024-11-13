@@ -68,7 +68,7 @@ def _fetch_from_public_url(source: str, file_type: str) -> List[Dict[str, str]]:
     """
     Fetch examples from a repository.
     """
-    response = requests.get(source)
+    response = requests.get(source, timeout=60)
     if response.status_code == 200:
         if file_type in FILE_TYPE_HANDLERS:
             if file_type == "json":
