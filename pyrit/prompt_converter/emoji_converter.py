@@ -1,10 +1,10 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT license.
 
-import random
 
 from pyrit.models import PromptDataType
 from pyrit.prompt_converter import PromptConverter, ConverterResult
+import secrets
 
 
 class EmojiConverter(PromptConverter):
@@ -50,7 +50,7 @@ class EmojiConverter(PromptConverter):
         result = []
         for char in prompt:
             if char in EmojiConverter.emoji_dict:
-                result.append(random.choice(EmojiConverter.emoji_dict[char]))
+                result.append(secrets.choice(EmojiConverter.emoji_dict[char]))
             else:
                 result.append(char)
         ret_text = "".join(result)

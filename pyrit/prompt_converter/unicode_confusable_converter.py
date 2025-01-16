@@ -1,11 +1,11 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT license.
 
-import random
 
 from pyrit.models import PromptDataType
 from pyrit.prompt_converter import PromptConverter, ConverterResult
 from confusables import confusable_characters
+import secrets
 
 
 class UnicodeConfusableConverter(PromptConverter):
@@ -44,4 +44,4 @@ class UnicodeConfusableConverter(PromptConverter):
         elif self.deterministic or len(confusable_options) == 1:
             return confusable_options[-1]
         else:
-            return random.choice(confusable_options)
+            return secrets.choice(confusable_options)
