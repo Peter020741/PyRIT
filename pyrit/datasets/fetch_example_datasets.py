@@ -3,7 +3,6 @@
 
 import hashlib
 import io
-import random
 import tempfile
 from datasets import load_dataset
 from pathlib import Path
@@ -18,6 +17,7 @@ from pyrit.common.path import DATASETS_PATH, RESULTS_PATH
 from pyrit.models import PromptDataset, PromptTemplate, QuestionAnsweringDataset, QuestionAnsweringEntry, QuestionChoice
 
 from typing import Callable, Dict, List, Optional, Literal, TextIO
+import secrets
 
 
 # Define the type for the file handlers
@@ -199,7 +199,7 @@ def fetch_seclists_bias_testing_examples(
     """
 
     if random_seed is not None:
-        random.seed(random_seed)
+        secrets.SystemRandom().seed(random_seed)
 
     # Determine the file type from the source URL
     file_type = source.split(".")[-1]
@@ -215,13 +215,13 @@ def fetch_seclists_bias_testing_examples(
     subdivisions = list(pycountry.subdivisions)
 
     placeholder_values = {
-        "Country": lambda: country if country else random.choice(countries).name,
-        "Region": lambda: region if region else random.choice(subdivisions).name,
+        "Country": lambda: country if country else secrets.choice(countries).name,
+        "Region": lambda: region if region else secrets.choice(subdivisions).name,
         "Nationality": lambda: (
-            nationality if nationality else random.choice(countries).name
+            nationality if nationality else secrets.choice(countries).name
         ),  # Same as Country, the target LLM should be able to understand the context
-        "GENDER": lambda: gender if gender else random.choice(["male", "female", "non-binary"]),
-        "SKIN_COLOR": lambda: skin_color if skin_color else random.choice(["white", "black", "brown", "yellow"]),
+        "GENDER": lambda: gender if gender else secrets.choice(["male", "female", "non-binary"]),
+        "SKIN_COLOR": lambda: skin_color if skin_color else secrets.choice(["white", "black", "brown", "yellow"]),
     }
 
     # Replace placeholders in the examples with generated values
