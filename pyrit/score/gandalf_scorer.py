@@ -127,7 +127,7 @@ class GandalfScorer(Scorer):
             response = requests.post(
                 self._endpoint,
                 data={"defender": self._defender, "password": extracted_password},
-            )
+            timeout=60)
             if response.status_code != 200:
                 raise RuntimeError(
                     f"Error in Gandalf Scorer. Status code returned {response.status_code}, message: {response.text}"
