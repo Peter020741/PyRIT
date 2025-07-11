@@ -9,7 +9,6 @@ from datasets import load_dataset
 from pathlib import Path
 
 import pycountry
-import requests
 
 from pyrit.common.csv_helper import read_csv, write_csv
 from pyrit.common.json_helper import read_json, write_json
@@ -18,6 +17,7 @@ from pyrit.common.path import DATASETS_PATH, RESULTS_PATH
 from pyrit.models import PromptDataset, PromptTemplate, QuestionAnsweringDataset, QuestionAnsweringEntry, QuestionChoice
 
 from typing import Callable, Dict, List, Optional, Literal, TextIO
+from security import safe_requests
 
 
 # Define the type for the file handlers
@@ -68,7 +68,7 @@ def _fetch_from_public_url(source: str, file_type: str) -> List[Dict[str, str]]:
     """
     Fetch examples from a repository.
     """
-    response = requests.get(source)
+    response = safe_requests.get(source)
     if response.status_code == 200:
         if file_type in FILE_TYPE_HANDLERS:
             if file_type == "json":
