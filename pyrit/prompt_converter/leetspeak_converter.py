@@ -1,10 +1,10 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT license.
 
-import random
 
 from pyrit.models import PromptDataType
 from pyrit.prompt_converter import PromptConverter, ConverterResult
+import secrets
 
 
 class LeetspeakConverter(PromptConverter):
@@ -61,7 +61,7 @@ class LeetspeakConverter(PromptConverter):
                     converted_prompt.append(self._leet_substitutions[lower_char][0])
                 else:
                     # Randomly select a substitution for each character
-                    converted_prompt.append(random.choice(self._leet_substitutions[lower_char]))
+                    converted_prompt.append(secrets.choice(self._leet_substitutions[lower_char]))
             else:
                 # If character not in substitutions, keep it as is
                 converted_prompt.append(char)
